@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    html{
+    margin: 0;
+    padding: 0;
+    background: url("img/bg_login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+section{
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.form-login{
+    background: transparent;
+    border: 1px solid #ffff;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    width: 700px;
+    height: 500px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+h2{
+    text-align: center;
+    color: #ffff;
+    font-size: 60px;
+}
+.form-login-value{
+    position: relative;
+    border-bottom: 1px solid #ffff;
+    margin: 45px 0;
+    width:500px;
+}
+.form-login-value label{
+    position: absolute;
+    top:0;
+    left: 5px;
+    font-size: 30px;
+    color:#ffff;
+    pointer-events: none; 
+    transition: .5s;
+}
+
+.form-login-value input{
+    padding: 0 35px 0 5px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 30px;
+    color: #ffff;
+}
+.form-login-value ion-icon{
+    position: absolute;
+    right: 5px;
+    font-size: 25px;
+    color: #ffff;
+}
+.form-login-forget{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    color: #ffff;
+    margin-bottom: 15px;
+    
+}
+.link-forget-register{
+    text-decoration: underline;
+    color: #ffff;
+}
+.btn-edit{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.link-submit{
+    text-decoration: none;
+    color: black;
+}
+.btn-edit button{
+    font-size: 30px;
+    width:100%;
+    padding: 15px 0 15px 0;
+    border-radius: 30px;
+    background-color: #00abf0;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.btn-edit button a{
+    text-decoration: none;
+    color: white;
+}
+input::placeholder{
+    color: #ffff;
+    font-size: 25px;
+}
+
+</style>
+<body>
+    <section>
+        <div class="form-login">
+            <form action="">
+                <h2>Đăng nhập &emsp13;</h2>
+                <div class="form-login-value">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" id="username" placeholder="Tên đăng nhập" required>
+                </div>
+                <div class="form-login-value">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="btn-edit">
+                    <button type="submit" class="btn-login" onclick="checkLogin(event)">Login</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script>
+    const url = "https://67e4d69f18194932a58368f2.mockapi.io";
+    function checkLogin(event) {
+    event.preventDefault(); 
+
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+
+    $.get(url + "/users", function(users) {
+        // Tìm user có name và password trùng khớp
+        let user = users.find(user => user.name === username && user.password === password);
+
+        if (user) {
+            alert("Gõ đúng rồi nè giỏi qué! ❤️");
+            window.location.href = "card.html";
+        } else {
+            alert("Oh no sai rồi, gõ lại đi nào! 😢");
+        }
+    }).fail(function() {
+        alert("Lỗi kết nối đến server!");
+    });
+}
+</script>
+
+</html>
